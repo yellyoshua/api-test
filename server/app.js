@@ -1,5 +1,6 @@
 import "dotenv/config";
 import mongoose from "mongoose";
+import bodyParser from "body-parser";
 import express from "express";
 import users_routes from "./modules/users/users_routes.js";
 import students_routes from "./modules/students/students_routes.js";
@@ -7,6 +8,8 @@ import students_routes from "./modules/students/students_routes.js";
 const app = express();
 
 await mongoose.connect(process.env.DATABASE_URL);
+
+app.use(bodyParser.json());
 
 app.listen(3000, () => {
   users_routes(app);

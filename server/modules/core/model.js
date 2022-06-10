@@ -13,6 +13,12 @@ export default (Model = mongoose.Model) => {
 
       return mongooseInstance.lean().exec();
     },
-    async update() {}
+    async create(body = {}) {
+      const entity = new Model({
+        ...body,
+      });
+
+      return entity.save();
+    },
   };
 };
