@@ -26,6 +26,11 @@ export default (app, model, path) => {
     }
   };
 
+  const remove = async (req = request, res = response) => {
+    const response = await model.remove(req.query);
+    res.status(200).json({ response, errors: []});
+  }
+
   const setup = (operations = {}) => {
     if (operations.get) {
       app.get(path, find);
@@ -37,6 +42,10 @@ export default (app, model, path) => {
 
     if (operations.put) {
       app.put(path, update);
+    }
+
+    if (operations.delete) {
+      app.delete(path, remove);
     }
   }
 

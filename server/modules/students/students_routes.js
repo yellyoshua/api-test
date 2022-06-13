@@ -8,5 +8,6 @@ export default (app) => {
     get: true,
     post: true,
     put: true,
+    delete: true,
   })
 };
