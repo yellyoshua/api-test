@@ -7,5 +7,6 @@ export default (app) => {
   route.setup({
     get: true,
     post: true,
+    put: true,
   })
 };

@@ -43,5 +43,13 @@ export default (Model = mongoose.Model) => {
 
       return entity.save();
     },
+    async update(content = {}) {
+      const filter = { _id: content._id };
+      const mongooseInstance = Model.findOneAndUpdate(filter, content, {
+        new: true, // return the new updated document
+      });
+
+      return mongooseInstance.lean().exec();
+    },
   };
 };
