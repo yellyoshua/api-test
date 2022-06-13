@@ -52,9 +52,7 @@ export default (Model = mongoose.Model) => {
       return mongooseInstance.lean().exec();
     },
     async remove(filter = {}) {
-      const mongooseInstance = Model.findOneAndDelete(filter, {
-        new: true, // return the new updated document
-      });
+      const mongooseInstance = Model.findOneAndDelete(filter);
 
       return mongooseInstance.lean().exec();
     }
