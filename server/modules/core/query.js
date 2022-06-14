@@ -10,7 +10,6 @@ export default (mongooseQuery) => {
     populate (fields) {
       if (fields) {
         const parsedFields = fields.replace(/\+/ug, ' ');
-        console.log(parsedFields);
         mongooseQuery.populate(parsedFields);
       }
     }

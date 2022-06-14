@@ -33,9 +33,12 @@ describe('routes', () => {
     );
 
     expect(modelMock.find).toHaveBeenCalled();
-    expect(modelMock.find).toHaveBeenCalledWith({
-      name: "test",
-    });
+    expect(modelMock.find).toHaveBeenCalledWith(
+      {
+        name: "test",
+      },
+      {}
+    );
 
     expect(resMock.status).toHaveBeenCalled();
     expect(resMock.status).toHaveBeenCalledWith(200);
