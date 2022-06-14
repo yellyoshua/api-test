@@ -1,35 +1,41 @@
-import { request, response } from "express";
-import mongoose from "mongoose";
+const composeQuery = (query) => {
+  const filter = {};
+  const params = {};
+
+  Object.keys(query).forEach((key) => {
+    if (key.startsWith('__')) {
+      params[key.slice(2)] = query[key];
+    } else {
+      filter[key] = query[key];
+    }
+  });
+
+  return {filter, params};
+};
 
 export default (app, model, path) => {
-  const find = async (req = request, res = response) => {
-    const response = await model.find(req.query);
+  const find = async (req, res) => {
+    const {filter, params} = composeQuery(req.query);
+    const response = await model.find(filter, params);
 
-    res.status(200).json({ response, errors: []});
+    res.status(200).json({response, errors: []});
   };
 
-  const create = async (req = request, res = response) => {
+  const create = async (req, res) => {
     const response = await model.create(req.body);
 
-    res.status(201).json({ response, errors: []});
+    res.status(201).json({response, errors: []});
   };
 
-  const update = async (req = request, res = response) => {
-    try {
-      const response = await model.update(req.body);
-
-      res.status(200).json({ response, errors: []});
-    } catch (error) {
-      if (error instanceof mongoose.Error.CastError)
-        return res.status(400).json({ response: null, errors: [{ message: "Invalid id" }]});
-      res.status(500).json({ response: null, errors: [{ message: error.message }]});
-    }
+  const update = async (req, res) => {
+    const response = await model.update(req.body);
+    res.status(200).json({response, errors: []});
   };
 
-  const remove = async (req = request, res = response) => {
+  const remove = async (req, res) => {
     const response = await model.remove(req.query);
-    res.status(200).json({ response, errors: []});
-  }
+    res.status(200).json({response, errors: []});
+  };
 
   const setup = (operations = {}) => {
     if (operations.get) {
@@ -47,9 +53,9 @@ export default (app, model, path) => {
     if (operations.delete) {
       app.delete(path, remove);
     }
-  }
+  };
 
   return {
-    setup,
+    setup
   };
-}
+};
