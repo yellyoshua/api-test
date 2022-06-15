@@ -9,8 +9,14 @@ export default (mongooseQuery) => {
     },
     populate (fields) {
       if (fields) {
-        const parsedFields = fields.replace(/\+/ug, ' ');
+        const parsedFields = fields.replace(/,/ug, ' ');
         mongooseQuery.populate(parsedFields);
+      }
+    },
+    select (fields) {
+      if (fields) {
+        const parsedFields = fields.replace(/,/ug, ' ');
+        mongooseQuery.select(parsedFields);
       }
     }
   };

@@ -1,7 +1,7 @@
 import {jest, describe, it, expect} from '@jest/globals';
 import defaultQuery from '../query.js';
 
-describe('', () => {
+describe('Query', () => {
   it('should paginate', () => {
     const mongooseQueryMock = {
       skip: jest.fn().mockReturnThis(),
@@ -22,7 +22,7 @@ describe('', () => {
 
     const query = defaultQuery(mongooseQueryMock);
 
-    query.populate('user+client');
+    query.populate('user,client');
     expect(mongooseQueryMock.populate).
     toHaveBeenCalledWith('user client');
   });
