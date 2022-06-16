@@ -1,7 +1,6 @@
-import mongoose from 'mongoose';
 import defaultQuery from './query.js';
 
-export default (Model = mongoose.Model) => {
+export default (Model) => {
   return {
     async find (filter = {}, params = {}) {
       const mongooseInstance = Model.find(filter, null, {
@@ -26,6 +25,9 @@ export default (Model = mongoose.Model) => {
     },
     async update (data = {}) {
       const filter = {_id: data._id};
+      if (!filter._id) {
+        throw new Error('_id is required');
+      }
       const mongooseInstance = Model.findOneAndUpdate(filter, data, {
         new: true
       });
@@ -34,6 +36,9 @@ export default (Model = mongoose.Model) => {
       return result;
     },
     async remove (filter = {}) {
+      if (!filter._id) {
+        throw new Error('_id is required');
+      }
       const mongooseInstance = Model.findOneAndDelete({_id: filter._id});
       const data = await mongooseInstance.exec();
 
