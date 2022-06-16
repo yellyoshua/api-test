@@ -18,43 +18,39 @@ describe('model', () => {
   describe('when find', () => {
     it('should return all data', async () => {
       const data = await testing_model.find();
-      expect(data.length).toEqual(6);
-      expect(data[0].name).toEqual('data1');
-      expect(data[0].surname).toEqual('data1_surname');
-      expect(data[0].age).toEqual(20);
-      expect(data[0].profile).not.toBeUndefined();
+      expect(data.length).toBe(6);
     });
 
     it('should paginate', async () => {
       const data = await testing_model.find({}, {page: 2, perPage: 2});
-      expect(data.length).toEqual(2);
-      expect(data[0].name).toEqual('data3');
-      expect(data[1].name).toEqual('data4');
+      expect(data.length).toBe(2);
+      expect(data[0].name).toBe('data3');
+      expect(data[1].name).toBe('data4');
     });
 
     it('should return specific fields selected', async () => {
       const data = await testing_model.find({}, {select: 'name,age'});
-      expect(data.length).toEqual(6);
-      expect(data[0].name).toEqual('data1');
-      expect(data[0].age).toEqual(20);
+      expect(data.length).toBe(6);
+      expect(data[0].name).toBe('data1');
+      expect(data[0].age).toBe(20);
       expect(data[0].surname).toBeUndefined();
       expect(data[0].profile).toBeUndefined();
 
-      expect(data[1].name).toEqual('data2');
-      expect(data[1].age).toEqual(21);
+      expect(data[1].name).toBe('data2');
+      expect(data[1].age).toBe(21);
       expect(data[1].surname).toBeUndefined();
       expect(data[1].profile).toBeUndefined();
     });
 
     it('should return data populated', async () => {
       const data = await testing_model.find({}, {populate: 'profile'});
-      expect(data.length).toEqual(6);
-      expect(data[0].profile.name).toEqual('profile1');
-      expect(data[1].profile.name).toEqual('profile2');
-      expect(data[2].profile.name).toEqual('profile3');
-      expect(data[3].profile.name).toEqual('profile4');
-      expect(data[4].profile.name).toEqual('profile5');
-      expect(data[5].profile.name).toEqual('profile6');
+      expect(data.length).toBe(6);
+      expect(data[0].profile.name).toBe('profile1');
+      expect(data[1].profile.name).toBe('profile2');
+      expect(data[2].profile.name).toBe('profile3');
+      expect(data[3].profile.name).toBe('profile4');
+      expect(data[4].profile.name).toBe('profile5');
+      expect(data[5].profile.name).toBe('profile6');
     });
 
     it('should non return data when in the filter pass a non exist property', async () => {
@@ -62,7 +58,7 @@ describe('model', () => {
         non_exist_property: 'non_exist_value'
       });
 
-      expect(data.length).toEqual(0);
+      expect(data.length).toBe(0);
     });
   });
 
@@ -77,7 +73,9 @@ describe('model', () => {
         name: 'data100'
       });
 
-      expect(data.length).toEqual(1);
+      expect(data.length).toBe(1);
+      expect(data[0].name).toBe('data100');
+      expect(data[0].surname).toBe('data100_surname');
     });
   });
 
