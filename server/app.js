@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import users_routes from './modules/users/users_routes.js';
 import students_routes from './modules/students/students_routes.js';
+import totals_routes from './modules/totals/total_routes.js';
 
 const app = express();
 const port = 3000;
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 app.listen(port, () => {
   users_routes(app);
   students_routes(app);
+  totals_routes(app);
   
   console.log(`Start! http://localhost:${port}`);
 });
