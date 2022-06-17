@@ -8,7 +8,7 @@ const studentsSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: 'users'
   }
-}, {collection: 'students', strictQuery: false});
+}, {collection: 'students'});
 
 const students = mongoose.model('students', studentsSchema);
 
