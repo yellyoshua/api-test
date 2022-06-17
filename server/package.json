@@ -2,11 +2,11 @@
   "name": "api-test",
   "version": "1.0.0",
   "description": "",
-  "main": "server/app.js",
+  "main": "app.js",
   "type": "module",
   "scripts": {
     "test:watch": "jest --watchAll",
-    "eslint": "./node_modules/.bin/eslint 'server/**'",
+    "eslint": "eslint '**/*.js'",
     "dev": "nodemon"
   },
   "repository": {
