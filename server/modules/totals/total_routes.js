@@ -10,11 +10,11 @@ export default (app) => {
 
       const includeAll = !filter.students && !filter.users;
 
-      if (includeAll || filter.students) {
+      if (includeAll || filter.students === true) {
         students = await students_model.find();
       }
 
-      if (includeAll || filter.users) {
+      if (includeAll || filter.users === true) {
         users = await users_model.find();
       }
 
