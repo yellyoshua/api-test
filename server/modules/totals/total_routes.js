@@ -4,9 +4,19 @@ import users_model from '../users/users_model.js';
 
 export default (app) => {
   const model = {
-    find: async () => {
-      const students = await users_model.find();
-      const users = await students_model.find();
+    find: async (filter) => {
+      let students = [];
+      let users = [];
+
+      const includeAll = !filter.students && !filter.users;
+
+      if (includeAll || filter.students) {
+        students = await students_model.find();
+      }
+
+      if (includeAll || filter.users) {
+        users = await users_model.find();
+      }
 
       return {total: students.length + users.length};
     }
